@@ -1,19 +1,28 @@
 // let's go!
-import React, { Component } from 'react'
-import { render } from 'react-dom'
+import React from 'react';
+import { render } from 'react-dom';
 
-import css from './styles/style.styl'
-import Main from './components/Main'
+import css from './styles/style.styl';
 
-export default class reduxstagram extends Component {
-  render() {
-    return (
-      <div>
-        
-      </div>
-    )
-  }
-}
+import App from './components/App';
+import Single from './components/Single';
+import PhotoGrid from './components/PhotoGrid';
+
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import store, { history } from './store';
 
 
-render(<p><Main/></p>, document.getElementById('root'))
+const router = ( 
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={App}>
+        <IndexRoute component={PhotoGrid}></IndexRoute>
+        <Route path="view/:postId" component={Single}></Route>
+      </Route>
+    </Router>  
+  </Provider>
+
+)
+
+render(router, document.getElementById('root'))
