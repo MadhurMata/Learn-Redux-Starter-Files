@@ -1,42 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
-export default class Photo extends Component {
+const Photo = React.createClass({
   render() {
-    const { posts, i, comments } = this.props
+    const { post, i, comments } = this.props;
+    console.log(post)
     return (
-      <div>
-        <figure className="grid-figure">
-          <div className="grid-photo-wrap">
-            <Link to={`/view/${posts[i].code}`}>
-              <img className="grid-photo" src={posts[i].display_src} alt={posts[i].caption} />
-            </Link>
+      <figure className="grid-figure">
+        <div className="grid-photo-wrap">
+          <Link to={`/view/${post.code}`}>
+            <img src={post.display_src} alt={post.caption} className="grid-photo" />
+          </Link>
 
-            <CSSTransitionGroup 
-              transitionName="like" 
-              transitionEnterTimeout={500} 
-              transitionLeaveTimeout={500}>
-            <span key={posts[i].likes} className="likes-heart">{posts[i].likes}</span>
-            </CSSTransitionGroup>
+          <CSSTransitionGroup transitionName="like" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+            <span key={post.likes} className="likes-heart">{post.likes}</span>
+          </CSSTransitionGroup>
 
-          </div>
+        </div>
 
-          <figcaption>
-            <p>{posts[i].caption}</p>
-            <div className="control-buttons">
-              <button onClick={this.props.increment.bind(null, i)} className="likes">&hearts; {posts[i].likes}</button>
-              <Link className="button" to={`/view/${posts[i].code}`}></Link>
+        <figcaption>
+          <p>{post.caption}</p>
+          <div className="control-buttons">
+            <button onClick={this.props.increment.bind(null, i)} className="likes">&hearts; {post.likes}</button>
+            <Link className="button" to={`/view/${post.code}`}>
               <span className="comment-count">
                 <span className="speech-bubble"></span>
-                {comments[i] ? comments[i].length : 0 }
-
+                {comments[post.code] ? comments[post.code].length : 0 }
               </span>
-            </div>
-          </figcaption>
+            </Link>
+          </div>
+        </figcaption>
 
-        </figure>
-      </div>
+      </figure>
     )
   }
-}
+});
+
+export default Photo;
