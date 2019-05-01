@@ -7,7 +7,7 @@ export default class PhotoGrid extends Component {
     return (
       <div>
         <div className="photo-grid">
-          {this.props.posts.map((post, i) => <Photo {...this.props} key={i} i={i} />)}
+          {this.props.posts.map((post, i) => <Photo post={post} {...this.props} key={i} i={i} />)}
         </div>
       </div>
     )
